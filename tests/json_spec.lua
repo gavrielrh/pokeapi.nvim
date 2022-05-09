@@ -11,4 +11,9 @@ describe("pokeapi.json", function()
             foo=23
         }, result)
     end)
+
+    it("turns non json results into nil", function()
+        local result = require("pokeapi.json").parse("thanks for all the fish")
+        assert.are.same(nil, result)
+    end)
 end)

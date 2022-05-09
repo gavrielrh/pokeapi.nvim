@@ -32,4 +32,17 @@ describe("pokeapi", function()
         local result = require("pokeapi").get_resources("berry", 2, 1)
         assert.are.same("cheri", result['results'][1]['name'])
     end)
+
+    it("handles missing resource", function()
+        local missing_resource = require("pokeapi").get_resource("foo", 1)
+        assert.are.same(nil, result)
+
+        local missing_id = require("pokeapi").get_resource("pokemon", 999999)
+        assert.are.same(nil, result)
+    end)
+
+    it("handles missing resources", function()
+        local result = require("pokeapi").get_resources("foo")
+        assert.are.same(nil, result)
+    end)
 end)
