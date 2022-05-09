@@ -25,35 +25,23 @@ end
 local build_query_string = function(params)
     params = params or {}
     local qs = "?"
-    for param, value in pairs(params) do
-        qs = qs .. param .. "=" .. value .. "&"
+    for _, qp in ipairs(params) do
+        qs = qs .. qp['name'] .. "=" .. qp['value'] .. "&"
     end
     return string.sub(qs, 0, -2)
 end
 M._internal.build_query_string = build_query_string
-
---[[
-print(_build_query_string({
-    limit=20,
-    offset=20
-}))
-print(_build_query_string({
-    limit=20
-}))
---]]
 
 M.get_resource = function(resource, id)
     return curl(host .. resource .. "/" .. id)
 end
 
 M.get_resources = function(resource, limit, offset)
-    local params = {}
-    if limit then
-        params['limit'] = limit
-    end
-    if offset then
-        params['offset'] = offset
-    end
+    -- Using ordered params so that caching doesn't clash
+    local params = {
+        { name='limit', value=limit or 20 },
+        { name='offset', value=offset or 0 }
+    }
     local qs = build_query_string(params)
     return curl(host .. resource .. qs)
 end

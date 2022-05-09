@@ -1,6 +1,25 @@
 ================================================================================
                                                                   *pokeapi.nvim*
 
-This plugin lets you query the pokeapi from within nvim.
+This plugin lets you query https://pokeapi.co from within nvim.
+
+                                                      *pokeapi.get_resource()*
+pokeapi.get_resource({resource}, {name/id})
+
+    Get the {resource} with {name/id} from https://pokeapi.co
+
+>
+        pokeapi.get_resource("pokemon", "squirtle")
+>
+
+                                                     *pokeapi.get_resources()*
+pokeapi.get_resources({resource}, {limit}, {offset})
+
+    Get a list of the {resource} with {limit} and {offset} from
+    https://pokeapi.co
+
+>
+        pokeapi.get_resources("pokemon", 42, 0)
+>
 
 vim:tw=78:ts=8:ft=help:norl:
