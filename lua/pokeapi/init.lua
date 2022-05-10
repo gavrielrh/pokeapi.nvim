@@ -14,10 +14,12 @@ local curl = function(url)
     else
         local handle = io.popen("curl -s " .. url)
         if handle then
-            local result = json.parse(handle:read("*a"))
+            local status, value = pcall(vim.fn.json_decode, handle:read("*a"))
             handle:close()
-            api_cache[url] = result
-            return result
+            if status then
+                api_cache[url] = value
+                return value
+            end
         end
     end
 end
