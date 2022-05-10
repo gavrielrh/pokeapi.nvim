@@ -1,7 +1,5 @@
 local M = {}
 
-local json = require("pokeapi.json")
-
 M._internal = {}
 
 local host = "https://pokeapi.co/api/v2/"
